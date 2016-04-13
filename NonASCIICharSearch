@@ -1,0 +1,9 @@
+select InvalidCharacter, count(*)
+from (select body,
+  patindex('%[^ !-~]%' COLLATE Latin1_General_BIN,body) as [Position],
+  substring(body,patindex('%[^ !-~]%' COLLATE Latin1_General_BIN,body),1) as [InvalidCharacter],
+  ascii(substring(body,patindex('%[^ !-~]%' COLLATE Latin1_General_BIN,body),1)) as [ASCIICode]
+from  [analysis].[Raw_Tables_Combined_NEW]
+where patindex('%[^ !-~]%' COLLATE Latin1_General_BIN,body) >0) z
+group by [InvalidCharacter]
+order by 2 desc
