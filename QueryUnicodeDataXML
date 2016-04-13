@@ -1,0 +1,6 @@
+SELECT	col2,
+CAST('' AS XML).value('xs:hexBinary(sql:column("col2"))', 'NVARCHAR(MAX)') AS ConvertedString,
+convert(bigint, col2),
+convert(nvarchar,col2) outputChar,
+convert(varbinary,convert(nvarchar,col2))
+FROM	[10314_UpsideDown].dbo.jcs_test 
